@@ -1,0 +1,329 @@
+/* customização de cores */
+:root {
+    --primary-color: #007BFF; 
+    --secondary-color: #0056b3; 
+    --background-color: #f8f9fa; 
+    --text-color: #333; 
+    --white-color: #ffffff;
+    --section-padding: 60px 0;
+}
+
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Cabeçalho */
+header {
+    background: var(--white-color);
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Seção do Hero (a apresentação) */
+#hero {
+    position: relative; /* necessário para o overlay */
+    text-align: center;
+    padding: 180px 0 120px 0; 
+    color: white; 
+    /* Propriedades da imagem do bg */
+    background-image: url('images/hero-background.jpg');
+    background-size: cover; /* Faz a imagem cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat;
+    
+    z-index: 1;
+}
+
+/* Camada escura no hero*/
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+}
+
+#hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: white; 
+}
+
+#hero p {
+    font-size: 1.2rem; 
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    font-weight: 300;
+}
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Estilo geral das seções */
+.section {
+    padding: var(--section-padding);
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    color: var(--text-color);
+}
+
+/* Grade de Serviços */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.service-item {
+    background: var(--white-color);
+    border: 1px solid #ddd;
+    padding: 25px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Portfolio */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+.portfolio-grid img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Depoimentos */
+#testimonials {
+    background-color: var(--background-color);
+}
+.testimonial-item {
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+.testimonial-item blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.testimonial-item cite {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Contato */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contact-form button {
+    border: none;
+    cursor: pointer;
+}
+
+/* Rodapé */
+footer {
+    background: var(--text-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 20px 0;
+}
+
+.social-links a {
+    color: var(--white-color);
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* Botão flutuante do Wpp */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.whatsapp-float img {
+    width: 35px; /* tamanho ícone do wpp aqui */
+}
+
+/* media query para responsividade */
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 2rem;
+    }
+    header .container {
+        flex-direction: column;
+    }
+    header nav {
+        margin-top: 10px;
+    }
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+/* Carrossel */
+.carousel {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carousel-track-container {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.carousel-track {
+    list-style: none;
+    position: relative;
+    height: 100%;
+    transition: transform 250ms ease-in; 
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra todo o espaço */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    z-index: 2;
+}
+
+.carousel-button:hover {
+    background: var(--white-color);
+}
+
+.carousel-button--left {
+    left: 10px;
+}
+
+.carousel-button--right {
+    right: 10px;
+}
+
+.is-hidden {
+    display: none;
+}
