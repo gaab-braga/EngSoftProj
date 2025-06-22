@@ -40,8 +40,11 @@ A organização dos arquivos foi pensada para manter o código limpo e de fácil
 
 ClinicaAguiar/
 ├── 📂 images/              # Armazena todas as imagens
+
 ├── 📄 index.html           # Estrutura principal da página
+
 ├── 📄 style.css             # Estilização visual
+
 └── 📄 script.js             # Lógica e interatividade
 
 👨‍💻 Autor
