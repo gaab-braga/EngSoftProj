@@ -39,6 +39,7 @@ Abrir o arquivo index.html no seu navegador de preferência.
 A organização dos arquivos foi pensada para manter o código limpo e de fácil manutenção, separando as responsabilidades:
 
 ClinicaAguiar/
+
 ├── 📂 images/              # Armazena todas as imagens
 
 ├── 📄 index.html           # Estrutura principal da página
