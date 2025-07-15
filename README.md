@@ -2,7 +2,7 @@ Landing Page - Clínica Odontológica Aguiar
 Projeto de landing page responsiva desenvolvido como atividade acadêmica. O objetivo foi criar uma presença digital moderna e funcional para a Clínica Odontológica Aguiar, facilitando o contato e a captação de novos pacientes.
 
 🔗 Acesse a demonstração ao vivo [clicando aqui!](https://gaab-braga.github.io/EngSoftProj/)
-✨ Funcionalidades Principais
+ Funcionalidades Principais
 Design Sofisticado: Layout limpo e profissional com uma imagem de fundo na seção inicial, tratada com uma camada escura para garantir contraste e legibilidade.
 
 Totalmente Responsivo: A experiência de uso é otimizada para qualquer dispositivo, seja celular, tablet ou desktop.
