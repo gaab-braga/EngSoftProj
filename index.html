@@ -3,154 +3,702 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clínica Odontológica Aguiar</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Plataforma de Transformação Estratégica - GRUPO MONT</title>
+    <style>
+        :root {
+            --bg-color: #121828;
+            --sidebar-bg: #1a2238;
+            --card-bg: #222c47;
+            --primary-color: #1f2940; 
+            --secondary-color: #ff6584;
+            --accent-color: #4d84f3;
+            --text-color: #f0f0f0;
+            --text-muted: #a0a0b0;
+            --border-color: #2a3b5e;
+            --success-color: #5cb85c;
+            --warning-color: #f0ad4e;
+            --danger-color: #d9534f;
+            --font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--sidebar-bg);
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        #sidebar-header {
+            text-align: center;
+            padding: 0 20px 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #sidebar-header h1 {
+            font-size: 1.6rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        #sidebar-header p {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            margin: 5px 0 0 0;
+            font-weight: bold;
+        }
+
+        #sidebar nav {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        #sidebar nav a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 15px 20px;
+            margin: 5px 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        #sidebar nav a:hover, #sidebar nav a.active {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        #main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+       .page { display: none; }
+       .page.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        p, li {
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        
+       .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+       .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+       .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+       .card h4 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .card ol li {
+            margin-bottom: 10px;
+        }
+
+       .metric {
+            font-size: 2.8rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 0;
+        }
+       .metric-label {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+       .metric.deficit { color: var(--danger-color); }
+       .metric.faturamento { color: var(--success-color); }
+       .metric.custo { color: var(--warning-color); }
+
+        #kanban-board-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            min-height: 600px;
+        }
+
+       .kanban-column {
+            min-width: 320px;
+            width: 320px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+       .kanban-column h4 {
+            text-align: center;
+            margin: 5px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+       .kanban-swimlane { margin-bottom: 20px; }
+        
+       .swimlane-title {
+            font-weight: bold;
+            color: var(--text-muted);
+            padding: 8px;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+       .kanban-cards {
+            flex-grow: 1;
+            min-height: 100px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgba(0,0,0,0.1);
+        }
+
+       .kanban-card {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: grab;
+            border-left: 4px solid var(--secondary-color);
+            transition: background-color 0.2s;
+        }
+       .kanban-card:hover { background-color: #2f3b61; }
+       .kanban-card.dragging { opacity: 0.5; transform: rotate(3deg); }
+       .kanban-card p { margin: 0 0 10px 0; font-size: 0.95rem; color: var(--text-color); }
+       .kanban-card .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+       .kanban-card .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; color: white; font-weight: bold; }
+       .tag.rpa { background-color: #3498db; }
+       .tag.croscel { background-color: #9b59b6; }
+       .tag.api { background-color: #2ecc71; }
+       .tag.bug { background-color: var(--danger-color); }
+       .tag.feature { background-color: var(--success-color); }
+       .tag.maintenance { background-color: var(--warning-color); }
+
+       .checklist { list-style: none; padding: 0; }
+       .checklist li {
+            background-color: var(--primary-color);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+       .checklist li:hover { background-color: #35466d; }
+       .checklist input[type="checkbox"] {
+            margin-right: 15px;
+            min-width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+       .checklist label {
+            cursor: pointer;
+            flex-grow: 1;
+        }
+       .checklist input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+       .timeline {
+            position: relative;
+            padding: 20px 0;
+            list-style: none;
+        }
+       .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 4px;
+            background: var(--primary-color);
+        }
+       .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 60px;
+        }
+       .timeline-item:before {
+            content: '';
+            background: var(--secondary-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            z-index: 1;
+        }
+       .timeline-item h4 {
+            color: var(--secondary-color);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+        }
+
+       .pricing-table {
+            display: flex;
+            justify-content: space-around;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+       .pricing-tier {
+            flex: 1;
+            min-width: 280px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background-color: var(--primary-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+       .pricing-tier:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary-color);
+        }
+       .pricing-tier h4 { font-size: 1.6rem; color: var(--secondary-color); margin-top: 0; }
+       .pricing-tier .price { font-size: 2.2rem; font-weight: bold; margin: 15px 0; }
+       .pricing-tier ul { list-style: none; padding: 0; margin: 25px 0; }
+       .pricing-tier li { margin-bottom: 12px; }
+        
+       .code-block {
+            background-color: #0d1117;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            color: #c9d1d9;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <a href="#" class="logo">Clínica Aguiar</a>
-            <nav>
-                <ul>
-                    <li><a href="#services">Serviços</a></li>
-                    <li><a href="#testimonials">Depoimentos</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <h1>GRUPO MONT</h1>
+            <p>Plataforma Estratégica</p>
         </div>
-    </header>
-
-    <main>
-        <section id="hero">
-            <div class="container">
-                <h1>Sorrisos saudáveis, suas vidas felizes.</h1>
-                <p>Bem-vindo à Clínica Odontológica Aguiar, cuidamos de você com tecnologia hightech e atendimento humanizado.</p>
-                <a href="https://api.whatsapp.com/send?phone=5561998847317" target="_blank" class="btn">Agende Agora!</a>
-            </div>
-        </section>
-
-        <section id="services" class="section">
-            <div class="container">
-                <h2>Nossos Serviços</h2>
-                <div class="service-grid">
-                    <div class="service-item">
-                        <h3>Ortodontia</h3>
-                        <p>Alinhamento perfeito para o seu sorriso com os aparelhos mais modernos.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Implantes</h3>
-                        <p>Recupere a função e a estética do seu sorriso com implantes de alta qualidade.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Clareamento</h3>
-                        <p>Tenha um sorriso mais branco e radiante com nossas técnicas de clareamento.</p>
-                    </div>
-                     <div class="service-item">
-                        <h3>Limpeza</h3>
-                        <p>Mantenha sua saúde bucal em dia com uma limpeza profissional completa.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio" class="section">
-    <div class="container">
-        <h2>Resultados que Inspiram</h2>
-        
-        <div class="carousel">
-            <button class="carousel-button carousel-button--left is-hidden">
-                &lt;
-            </button>
-
-            <div class="carousel-track-container">
-                <ul class="carousel-track">
-                    <li class="carousel-slide current-slide">
-                        <img class="carousel-image" src="images/resultado1.jpg" alt="Resultado de tratamento 1">
-                    </li>
-                    <li class="carousel-slide">
-                        <img class="carousel-image" src="images/resultado2.jpg" alt="Resultado de tratamento 2">
-                    </li>
-                    <li class="carousel-slide">
-                        <img class="carousel-image" src="images/resultado3.jpg" alt="Resultado de tratamento 3">
-                    </li>
-                    <li class="carousel-slide">
-                        <img class="carousel-image" src="images/resultado4.jpg" alt="Resultado de tratamento 4">
-                    </li>
-                </ul>
-            </div>
-
-            <button class="carousel-button carousel-button--right">
-                &gt;
-            </button>
-        </div>
-
+        <nav>
+            <a href="#visao" class="nav-link active">Nova Visão e Diagnóstico</a>
+            <a href="#pilar1" class="nav-link">Pilar I: Processo Ágil</a>
+            <a href="#pilar2" class="nav-link">Pilar II: Excelência Técnica</a>
+            <a href="#pilar3" class="nav-link">Pilar III: Otimização Financeira</a>
+            <a href="#pilar4" class="nav-link">Pilar IV: Aceleração de Receita</a>
+            <a href="#plano30dias" class="nav-link">Plano dos Próximos Dias</a>
+        </nav>
     </div>
-</section>
 
-        <section id="testimonials" class="section">
-             <div class="container">
-                <h2>O que nossos pacientes acham</h2>
-                <div class="testimonial-item">
-                    <blockquote>"Atendimento incrível, amei os profissionais são todos muito competentes! A Dra. Larissa transformou meu sorriso. Recomendo a todos!"</blockquote>
-                    <cite>– Maria F.</cite>
-                </div>
-                 <div class="testimonial-item">
-                    <blockquote>"A melhor clínica odontológica que já fui!! Ambiente incrível e equipe super atenciosa."</blockquote>
-                    <cite>– João B.</cite>
-                </div>
+    <div id="main-content">
+        <div id="visao" class="page active">
+            <h2>Nova Visão e Diagnóstico Estratégico</h2>
+            <div class="card" style="background-color: var(--primary-color);">
+                <h4>A Nova Visão: De Fornecedor de Ferramentas a Líder de Infraestrutura</h4>
+                <p>O GRUPO MONT irá pivotar de um modelo de negócio dependente de RPA para se tornar um <strong>Fornecedor de Infraestrutura Insurtech para o Brasil</strong>. O nosso produto principal será uma API robusta e escalável, posicionando-nos como a "Stripe" das cotações de seguros de saúde no país.</p>
             </div>
-        </section>
-        
-        <section id="contact" class="section">
-            <div class="container">
-                <h2>Entre em Contato</h2>
-                <div class="contact-wrapper">
-                    <div class="contact-form">
-                        <h3>Mande uma mensagem</h3>
-                        <form id="contactForm">
-                            <input type="text" name="name" placeholder="Seu nome" required>
-                            <input type="email" name="email" placeholder="Seu email" required>
-                            <textarea name="message" placeholder="Sua Mensagem" required></textarea>
-                            <button type="submit" class="btn">Enviar</button>
-                        </form>
-                    </div>
-                    <div class="contact-map">
-                        <h3>Nossa Localização</h3>
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.21556270603!2d-46.656571184476!3d-23.56021136746955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0x2063e37581890315!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1678886500000!5m2!1spt-BR!2sbr" 
-                            width="100%" 
-                            height="300" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                        <p>Av. Principal, 123 - Centro</p>
-                        <p>Telefone: (XX) XXXX-XXXX</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Clínica Odontológica Aguiar. Todos os direitos reservados.</p>
-            <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
+            <h3>O Ponto de Partida: Uma Análise Honesta</h3>
+            <p>Para construir o futuro, precisamos entender o presente. A situação atual é crítica e exige ação imediata.</p>
+            <div class="grid-container">
+                <div class="card">
+                    <h4>Situação Financeira</h4>
+                    <p class="metric-label">Défice Mensal</p>
+                    <div class="metric deficit">- R$ 12.000</div>
+                    <hr style="border-color: var(--border-color); margin: 15px 0;">
+                    <p><strong>Faturamento:</strong> <span style="color: var(--success-color);">R$ 8.000</span></p>
+                    <p><strong>Custo Operacional:</strong> <span style="color: var(--warning-color);">R$ 20.000</span></p>
+                </div>
+                <div class="card">
+                    <h4>Diagnóstico do Modelo de Negócio</h4>
+                    <p>O modelo atual, baseado em RPA, é inerentemente frágil. Qualquer mudança na interface de uma operadora quebra o nosso sistema, gerando um ciclo de "combate a incêndios" que consome 100% do foco da equipe e impede a inovação.</p>
+                </div>
+                <div class="card">
+                    <h4>Diagnóstico Operacional</h4>
+                    <p>Uma equipe técnica de apenas 3 desenvolvedores está sobrecarregada com a manutenção do sistema legado (RPA) e o desenvolvimento de dois novos produtos (Croscel e a API). Sem foco, o risco de falhar em todas as frentes é iminente.</p>
+                </div>
             </div>
         </div>
-    </footer>
 
-    <a href="https://api.whatsapp.com/send?phone=5561998847317&text=Olá!%20Gostaria%20de%20mais%20informações." class="whatsapp-float" target="_blank">
-        <img src="images/whatsapp.png" alt="WhatsApp">
-    </a>
+        <div id="pilar1" class="page">
+            <h2>Pilar I: Reinvenção do Processo Ágil</h2>
+            <p>Vamos substituir o caos por um fluxo de trabalho previsível, transparente e focado na entrega de valor.</p>
+            
+            <h3>Ferramenta Principal: Quadro Kanban Unificado</h3>
+            <p>Adotaremos um quadro Kanban único para visualizar todo o trabalho da equipe (manutenção e novos projetos) em ferramentas como <strong>Jira</strong> ou <strong>Trello</strong>. Isso tornará os gargalos visíveis e forçará a priorização estratégica.</p>
+            <div id="kanban-board-container"></div>
 
-    <script src="script.js"></script>
+            <h3>Como Isso Funciona na Prática: A Primeira Reunião de Priorização</h3>
+            <div class="card">
+                <h4>Cenário: Bug Crítico vs. Nova Feature</h4>
+                <p>Imagine duas tarefas competindo pela atenção da equipe:</p>
+                <ul>
+                    <li><strong>Tarefa A (Manutenção):</strong> "Robô da operadora X parou de funcionar."</li>
+                    <li><strong>Tarefa B (Estratégia):</strong> "Desenvolver endpoint de autenticação para a nova API."</li>
+                </ul>
+                <p>Na reunião de reabastecimento, aplicamos a fórmula de priorização. A Tarefa A, embora urgente, tem baixo alinhamento estratégico. A Tarefa B é o futuro da empresa. A fórmula força a equipe a focar na Tarefa B, enquanto se define um tempo LIMITADO para a correção do bug, evitando que o "urgente" canibalize o "importante".</p>
+            </div>
+
+            <h3>Rituais (Cadências) para Manter o Ritmo</h3>
+            <div class="grid-container">
+                <div class="card"><h4>Daily Stand-up (15 min)</h4><p>Reunião diária em frente ao quadro, focada em desbloquear o fluxo de trabalho, não em relatórios individuais.</p></div>
+                <div class="card"><h4>Reunião de Reabastecimento (45 min/semana)</h4><p>Priorizar e detalhar as próximas tarefas do backlog para garantir que a equipe trabalhe no que gera mais valor.</p></div>
+                <div class="card"><h4>Revisão de Entrega (45 min/quinzena)</h4><p>Analisar as métricas de fluxo para identificar e resolver gargalos sistêmicos no processo.</p></div>
+            </div>
+        </div>
+        
+        <div id="pilar2" class="page">
+            <h2>Pilar II: Excelência Técnica e de Produto</h2>
+            <p>A qualidade técnica não é um luxo, é a fundação para a estabilidade e a velocidade que precisamos.</p>
+
+            <h3>Qualidade de Código: Revisão Obrigatória</h3>
+            <p>Nenhum código vai para produção sem ser revisado por outro desenvolvedor. Isso aumenta a qualidade, espalha conhecimento e reduz o risco de "silos".</p>
+            <div class="card">
+                <h4>Checklist Básico de Code Review</h4>
+                <ul class="checklist">
+                    <li><input type="checkbox" disabled> Lógica de negócio correta e clara?</li>
+                    <li><input type="checkbox" disabled> Código performático e seguro?</li>
+                    <li><input type="checkbox" disabled> Testes automatizados foram criados/atualizados?</li>
+                    <li><input type="checkbox" disabled> Código legível e alinhado aos padrões da equipe?</li>
+                </ul>
+            </div>
+
+            <h3>Automação de Entregas (CI/CD)</h3>
+            <p>Vamos automatizar os processos de teste e implantação para entregar valor mais rápido e com menos erros.</p>
+            <div class="card">
+                <h4>Ferramenta Recomendada: Drone CI</h4>
+                <p>Em vez do complexo Jenkins, usaremos o <strong>Drone CI</strong>. É uma ferramenta moderna, leve, baseada em contêineres e muito mais simples de configurar e manter para uma equipe pequena, permitindo-nos focar no produto, não na infraestrutura.</p>
+                 <h4>Seu Primeiro Passo Prático:</h4>
+                 <p>O objetivo inicial não é automatizar tudo. A primeira ação é criar um pipeline que, a cada novo envio de código (commit), automaticamente execute todos os testes existentes. Se um teste falhar, o envio é bloqueado. Isso, por si só, já é uma enorme vitória de qualidade e estabilidade.</p>
+            </div>
+        </div>
+
+        <div id="pilar3" class="page">
+            <h2>Pilar III: Otimização Financeira e Estrutural</h2>
+            <p>Para sobreviver, precisamos estancar a sangria financeira. Isso exige ações pragmáticas e baseadas em dados.</p>
+
+            <h3>Plano de Reestruturação: Da Teoria à Prática</h3>
+            <p>A reestruturação não é sobre "demitir pessoas", é sobre redesenhar o trabalho para máxima eficiência e então adaptar a equipe a essa nova realidade. É um processo trifásico:</p>
+            <div class="card">
+                <h4>Fase 1: Mapeamento e Automação (Semanas 1-2)</h4>
+                <ol>
+                    <li><strong>Mapear Tarefas:</strong> Sentar-se com as equipes de pós-venda e administrativa para mapear 100% das suas tarefas diárias e semanais.</li>
+                    <li><strong>Identificar Alvos de Automação:</strong> Identificar processos repetitivos. Ex: emissão manual de faturas, agendamento de reuniões, respostas a perguntas frequentes.</li>
+                    <li><strong>Implementar Ferramentas de Baixo Custo:</strong> Contratar e configurar ferramentas para automatizar esses alvos. Ex: um sistema de faturamento recorrente (Asaas, Stripe), um sistema de agendamento (Calendly), e um sistema de tickets simples para suporte (Zendesk, Intercom - planos de startup).</li>
+                </ol>
+            </div>
+             <div class="card">
+                <h4>Fase 2: Absorção e Transição (Semanas 3-4)</h4>
+                <ol>
+                    <li><strong>Absorver o Essencial:</strong> As tarefas não automatizáveis (ex: suporte a um cliente estratégico, negociações complexas) serão absorvidas por nós (eu e equipe técnica). Isso é parte do sacrifício necessário nesse processo brusco.</li>
+                    <li><strong>Preparar a Transição:</strong> Com as funções originais agora largamente automatizadas ou absorvidas, a necessidade de 3 pessoas dedicadas a estas áreas diminui. Este é o momento de ter conversas transparentes sobre a reestruturação, oferecendo pacotes de transição justos e explicando o porquê das mudanças com base na nova realidade da empresa.</li>
+                </ol>
+            </div>
+             <div class="card">
+                <h4>Fase 3: A Nova Estrutura Enxuta (Após 30 dias)</h4>
+                <p>O resultado é uma equipe menor, mas onde <strong>cada membro</strong> está diretamente envolvido na construção, venda ou suporte do produto principal. O custo administrativo cai drasticamente, alinhando a estrutura financeira com a realidade de uma startup focada em crescimento.</p>
+            </div>
+        </div>
+        
+        <div id="pilar4" class="page">
+            <h2>Pilar IV: Aceleração de Receita</h2>
+            <p>Cortar custos nos dá fôlego. Aumentar a receita nos dará o futuro.</p>
+
+            <h3>Novo Modelo de Precificação para a API</h3>
+            <p>Abandonaremos o modelo simplista de "preço por usuário" e adotaremos uma precificação por níveis, alinhada ao valor e escalável.</p>
+            <div class="pricing-table">
+                <div class="pricing-tier">
+                    <h4>Developer</h4>
+                    <div class="price">Grátis</div>
+                    <ul>
+                        <li>Até 1.000 chamadas/mês</li>
+                        <li>Integrações básicas</li>
+                        <li>Ideal para testes e MVPs</li>
+                    </ul>
+                </div>
+                <div class="pricing-tier" style="border-color: var(--secondary-color);">
+                    <h4>Startup</h4>
+                    <div class="price">R$ 299/mês</div>
+                    <ul>
+                        <li>Até 50.000 chamadas/mês</li>
+                        <li>Integrações principais</li>
+                        <li>Suporte por e-mail</li>
+                    </ul>
+                </div>
+                <div class="pricing-tier">
+                    <h4>Enterprise</h4>
+                    <div class="price">Customizado</div>
+                    <ul>
+                        <li>Volume ilimitado</li>
+                        <li>Todas as integrações</li>
+                        <li>Suporte Premium (SLA)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Priorização do Backlog Orientada a Receita</h3>
+            <p>A partir de agora, NENHUMA tarefa entra em desenvolvimento sem passar por esta fórmula. Isso força uma conversa de negócio para cada decisão técnica.</p>
+            <div class="card">
+                <h4>Fórmula de Priorização</h4>
+                <div class="code-block">Prioridade = (Receita + Aquisição + Red. Custos + Estratégia) / Esforço</div>
+                <p style="margin-top: 10px;">Cada item é pontuado de 1-5. Isso garante que estamos sempre construindo o que mais importa para reverter o défice e gerar lucro.</p>
+            </div>
+        </div>
+
+        <div id="plano30dias" class="page">
+            <h2>Plano de Execução dos Próximos Dias</h2>
+            <p>Ações decisivas para gerar resultados imediatos e construir momentum.</p>
+            <ul class="timeline">
+                <li class="timeline-item">
+                    <h4>Mês 1: Diagnóstico e Alinhamento</h4>
+                    <ul class="checklist" id="week1-checklist">
+                        <li><input type="checkbox" id="w1t1"><label for="w1t1">Apresentar a realidade financeira (défice de R$12k) e DISCUTIR MUITO BEM a nova visão da equipe, posicionamento, futuro do Grupo.</label></li>
+                        <li><input type="checkbox" id="w1t2"><label for="w1t2">Configurar o quadro Kanban e iniciar os rituais ágeis (Daily Stand-up).</label></li>
+                        <li><input type="checkbox" id="w1t3"><label for="w1t3"><strong>Iniciar Fase 1 da Reestruturação:</strong> Mapeamento de tarefas administrativas e de pós-venda.</label></li>
+                    </ul>
+                </li>
+                <li class="timeline-item">
+                    <h4>Mês 2: Implementação e Cortes</h4>
+                    <ul class="checklist" id="week2-checklist">
+                        <li><input type="checkbox" id="w2t1"><label for="w2t1">Contratar e configurar ferramentas de automação para as tarefas mapeadas.</label></li>
+                        <li><input type="checkbox" id="w2t2"><label for="w2t2">Formalizar as cadências Kanban no calendário da equipe.</label></li>
+                        <li><input type="checkbox" id="w2t3"><label for="w2t3">Implementar o processo formal de Revisão de Código.</label></li>
+                        <li><input type="checkbox" id="w2t4"><label for="w2t4">Iniciar a configuração do pipeline básico de CI/CD (Drone CI).</label></li>
+                    </ul>
+                </li>
+                <li class="timeline-item">
+                    <h4>Mês 3: Aceleração Técnica e Comercial</h4>
+                    <ul class="checklist" id="week3-checklist">
+                        <li><input type="checkbox" id="w3t1"><label for="w3t1">Re-priorizar o backlog de desenvolvimento com o novo framework de valor.</label></li>
+                        <li><input type="checkbox" id="w3t2"><label for="w3t2"><strong>Iniciar Fase 2 da Reestruturação:</strong> Absorver tarefas restantes e preparar plano de transição.</label></li>
+                        <li><input type="checkbox" id="w3t3"><label for="w3t3">Lançar o novo site e a página de preços da API.</label></li>
+                        <li><input type="checkbox" id="w3t4"><label for="w3t4">Publicar o primeiro artigo de marketing de conteúdo.</label></li>
+                    </ul>
+                </li>
+                <li class="timeline-item">
+                    <h4>Mês 4: Medição e Iteração</h4>
+                    <ul class="checklist" id="week4-checklist">
+                        <li><input type="checkbox" id="w4t1"><label for="w4t1">Realizar a primeira Reunião de Revisão de Entrega e analisar as métricas.</label></li>
+                        <li><input type="checkbox" id="w4t2"><label for="w4t2">Acompanhar os primeiros leads do novo funil de vendas.</label></li>
+                        <li><input type="checkbox" id="w4t3"><label for="w4t3">Executar o plano de transição da equipe, formalizando a nova estrutura.</label></li>
+                        <li><input type="checkbox" id="w4t4"><label for="w4t4">Preparar e apresentar o relatório de progresso de 30 dias.</label></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- NAVIGATION LOGIC ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            function switchPage(targetId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === targetId) {
+                        page.classList.add('active');
+                    }
+                });
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                    if (navLink.getAttribute('href') === '#' + targetId) {
+                        navLink.classList.add('active');
+                    }
+                });
+                document.getElementById('main-content').scrollTop = 0;
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    switchPage(targetId);
+                });
+            });
+
+            // --- KANBAN BOARD LOGIC ---
+            const kanbanData = {
+                columns: [
+                    { id: 'backlog', title: 'Backlog' },
+                    { id: 'prioritized', title: 'Priorizado' },
+                    { id: 'developing', title: 'Em Desenvolvimento' },
+                    { id: 'review', title: 'Em Revisão' },
+                    { id: 'done', title: 'Concluído' }
+                ],
+                swimlanes: [
+                    { id: 'standard', title: 'Trabalho Padrão' },
+                    { id: 'maintenance', title: 'Manutenção / Bugs' }
+                ],
+                tasks: [
+                    { id: 'task-1', content: 'Analisar e reestruturar custos administrativos', column: 'done', swimlane: 'standard', tags: ['feature'] },
+                    { id: 'task-2', content: 'Desenvolver endpoint de autenticação da API', column: 'developing', swimlane: 'standard', tags: ['api', 'feature'] },
+                    { id: 'task-3', content: 'Criar tela de login para o Croscel', column: 'developing', swimlane: 'standard', tags: ['croscel', 'feature'] },
+                    { id: 'task-4', content: 'Refatorar módulo de cálculo do plano Y', column: 'review', swimlane: 'maintenance', tags: ['rpa', 'maintenance'] },
+                    { id: 'task-5', content: 'Adicionar nova operadora Z ao sistema', column: 'prioritized', swimlane: 'standard', tags: ['rpa', 'feature'] },
+                    { id: 'task-6', content: 'Corrigir bug visual no dashboard', column: 'backlog', swimlane: 'maintenance', tags: ['bug'] },
+                    { id: 'task-7', content: 'Desenvolver documentação da API (Swagger)', column: 'prioritized', swimlane: 'standard', tags: ['api'] },
+                    { id: 'task-8', content: 'Atualizar robô da operadora A (mudança de layout)', column: 'backlog', swimlane: 'maintenance', tags: ['rpa', 'maintenance'] },
+                ]
+            };
+
+            function renderKanbanBoard() {
+                const container = document.getElementById('kanban-board-container');
+                if (!container) return;
+                container.innerHTML = ''; 
+
+                kanbanData.columns.forEach(column => {
+                    const columnEl = document.createElement('div');
+                    columnEl.className = 'kanban-column';
+                    columnEl.dataset.columnId = column.id;
+                    columnEl.innerHTML = `<h4>${column.title}</h4>`;
+                    
+                    kanbanData.swimlanes.forEach(swimlane => {
+                        const swimlaneEl = document.createElement('div');
+                        swimlaneEl.className = 'kanban-swimlane';
+                        swimlaneEl.innerHTML = `<div class="swimlane-title">${swimlane.title}</div>`;
+                        
+                        const cardsContainer = document.createElement('div');
+                        cardsContainer.className = 'kanban-cards';
+                        cardsContainer.dataset.columnId = column.id;
+                        cardsContainer.dataset.swimlaneId = swimlane.id;
+
+                        swimlaneEl.appendChild(cardsContainer);
+                        columnEl.appendChild(swimlaneEl);
+                    });
+                    container.appendChild(columnEl);
+                });
+
+                kanbanData.tasks.forEach(task => {
+                    const cardEl = createCardElement(task);
+                    const targetContainer = container.querySelector(`.kanban-cards[data-column-id="${task.column}"][data-swimlane-id="${task.swimlane}"]`);
+                    if (targetContainer) {
+                        targetContainer.appendChild(cardEl);
+                    }
+                });
+                
+                addDragAndDropListeners();
+            }
+
+            function createCardElement(task) {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'kanban-card';
+                cardEl.dataset.taskId = task.id;
+                cardEl.draggable = true;
+                
+                const tagsHtml = task.tags.map(tag => `<span class="tag ${tag}">${tag.toUpperCase()}</span>`).join('');
+
+                cardEl.innerHTML = `<p>${task.content}</p><div class="tags">${tagsHtml}</div>`;
+                return cardEl;
+            }
+            
+            function addDragAndDropListeners() {
+                const cards = document.querySelectorAll('.kanban-card');
+                const containers = document.querySelectorAll('.kanban-cards');
+                let draggedCard = null;
+
+                cards.forEach(card => {
+                    card.addEventListener('dragstart', () => {
+                        draggedCard = card;
+                        setTimeout(() => card.classList.add('dragging'), 0);
+                    });
+                    card.addEventListener('dragend', () => {
+                        draggedCard.classList.remove('dragging');
+                        draggedCard = null;
+                    });
+                });
+
+                containers.forEach(container => {
+                    container.addEventListener('dragover', e => {
+                        e.preventDefault();
+                        const afterElement = getDragAfterElement(container, e.clientY);
+                        if (draggedCard) {
+                            if (afterElement == null) {
+                                container.appendChild(draggedCard);
+                            } else {
+                                container.insertBefore(draggedCard, afterElement);
+                            }
+                        }
+                    });
+                });
+            }
+
+            function getDragAfterElement(container, y) {
+                const draggableElements = [...container.querySelectorAll('.kanban-card:not(.dragging)')];
+                return draggableElements.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset: offset, element: child };
+                    } else {
+                        return closest;
+                    }
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            }
+
+            // --- INITIALIZATION ---
+            renderKanbanBoard();
+        });
+    </script>
 </body>
 </html>
